@@ -1,17 +1,46 @@
 <template>
-  <div class="px-8 prose">
-    <h1 class="font-source">Program Generator</h1>
+  <div class="px-8">
+    <div v-if="debug" class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600">
+      You are looking at a static and experimental development version of Slipmat Radio Program
+      Generator. The initial data on this page is static development data. No changes are persisted,
+      everything resets when you refresh the page. This is here only for debugging and testing
+      purposes.
+    </div>
+
+    <h1 class="mb-6 text-2xl font-bold font-source">Program Generator</h1>
+
+    <add-form></add-form>
+
+    <div>
+      <h2 class="text-2xl font-semibold text-gray-900 font-source">Program</h2>
+
+      <div>
+        <list-item v-for="row in rows" :key="row" :row="row" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRef } from 'vue'
-import { globalState } from '../store'
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
+import { key, State } from '../store'
+
+import ListItem from './ListItem.vue'
+import AddForm from './AddForm.vue'
 
 export default defineComponent({
+  components: {
+    ListItem,
+    AddForm,
+  },
   setup() {
+    // @ts-expect-error
+    const store = useStore<State>(key)
+
     return {
-      count: toRef(globalState, 'count'),
+      debug: process.env.NODE_ENV === 'development',
+      rows: computed(() => store.state.rows),
     }
   },
 })
