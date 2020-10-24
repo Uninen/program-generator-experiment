@@ -1,6 +1,6 @@
 <template>
   <div class="px-8">
-    <div v-if="debug" class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600">
+    <div v-if="!debug" class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600">
       You are looking at a static and experimental development version of Slipmat Radio Program
       Generator. The initial data on this page is static development data. No changes are persisted,
       everything resets when you refresh the page. This is here only for debugging and testing
