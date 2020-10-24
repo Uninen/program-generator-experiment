@@ -247,9 +247,10 @@
     <main class="w-full mx-auto max-w-9xl sm:py-6 sm:px-6 lg:px-8">
       <!-- Content -->
       <div v-if="!debug" class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600">
-        You are looking at a static and unfinished development version of Slipmat EventPlanner. The
-        data is not real, it's static development data. No changes are persisted, everything resets
-        when you refresh the page. This is here only for debugging and testing purposes.
+        You are looking at a static and experimental development version of Slipmat Radio Program
+        Generator. The initial data on this page is static development data. No changes are
+        persisted, everything resets when you refresh the page. This is here only for debugging and
+        testing purposes.
       </div>
 
       <program-generator></program-generator>
