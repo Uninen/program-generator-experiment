@@ -1,18 +1,52 @@
 <template>
   <div class="px-8 scriptbuilder">
-    <h1 class="mb-6 text-2xl font-bold font-source">Radio Script Builder 0.1a</h1>
+    <h1 class="mb-6 text-2xl font-bold font-source">
+      Radio Script Builder <br /><span class="text-gray-500"
+        >(experimental demo)</span
+      >
+    </h1>
 
     <div class="flex flex-col w-full md:flex-row-reverse">
       <div class="md:w-4/12">
-        <show-details-form />
+        <div class="mb-6">
+          <h3>Show Details</h3>
 
-        <add-form></add-form>
+          <show-details-form v-if="showDetailsFormOpen" />
+          <div v-else>
+            <ul class="text-gray-800 font-source">
+              <li>
+                <span class="font-semibold">Title</span>:
+                {{ showDetails.title }}
+              </li>
+              <li>
+                <span class="font-semibold">Start time</span>:
+                {{ showDetails.startTime }}
+              </li>
+              <li><span class="font-semibold">Duration</span>: 2h</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <h3 class="text-xl font-semibold text-gray-900 font-source">
+            Add Row
+          </h3>
+
+          <add-form></add-form>
+        </div>
       </div>
       <div class="md:w-8/12">
-        <div class="px-4 py-3 mr-6 bg-white rounded-sm shadow">
-          <h3>Program for {{ showDetails.title }}</h3>
+        <div class="px-4 py-3 bg-white rounded-sm shadow md:mr-6">
+          <h2 class="mb-6 text-2xl font-semibold font-source">
+            Program for {{ showDetails.title }}
+          </h2>
 
-          <list-item v-for="row in rows" :key="row" :row="row" />
+          <list-item
+            v-for="(row, index) in rows"
+            :key="row"
+            :index="index"
+            :row="row"
+          />
         </div>
       </div>
     </div>
@@ -42,6 +76,7 @@ export default defineComponent({
       debug: process.env.NODE_ENV === 'development',
       rows: computed(() => store.state.rows),
       showDetails: computed(() => store.state.showDetails),
+      showDetailsFormOpen: computed(() => store.state.ui.showDetailsFormOpen),
     }
   },
 })

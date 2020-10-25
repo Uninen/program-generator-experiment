@@ -16,12 +16,18 @@ export interface ListRow {
   comment?: string
 }
 export interface State {
+  ui: {
+    showDetailsFormOpen: boolean
+  }
   showDetails: ShowDetails
   rows: ListRow[]
 }
 export const key: InjectionKey<Store<State>> = Symbol()
 export const store = createStore<State>({
   state: {
+    ui: {
+      showDetailsFormOpen: false,
+    },
     showDetails: {
       title: 'RetroWaveStation #1',
       startTime: '22:00',
@@ -59,10 +65,22 @@ export const store = createStore<State>({
         song: 'The 1975 - Somebody Else',
       },
       {
+        type: 'talk',
+        isFixed: false,
+        duration: 30,
+        text: 'Welcome listeners, talk about the theme',
+      },
+      {
         type: 'song',
         isFixed: false,
         duration: 223,
         song: 'Michael Oakley - California',
+      },
+      {
+        type: 'song',
+        isFixed: false,
+        duration: 291,
+        song: 'Le Cassette - Digital Power',
       },
     ],
   },

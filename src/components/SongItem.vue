@@ -1,5 +1,4 @@
 <template>
-  <div class="text-sm font-semibold tracking-wide text-gray-400 uppercase font-source">Song</div>
   <div class="text-lg text-gray-900">{{ row.song }}</div>
 </template>
 <script lang="ts">

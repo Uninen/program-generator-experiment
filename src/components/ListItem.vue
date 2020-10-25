@@ -1,35 +1,37 @@
 <template>
-  <div class="mt-2">
-    <div
-      class="font-normal text-gray-900 border-b font-source"
-      :class="{
-        'border-gray-300': row.type === 'text',
-        'border-blue-300': row.type === 'song',
-        'border-orange-300': row.type === 'jingle',
-      }"
-    >
-      {{ formatDuration(row.duration) }}
+  <div class="flex flex-1 mt-2">
+    <div class="pr-3 text-xl font-semibold text-gray-600">
+      {{ startTime(row.duration) }}
     </div>
     <div
-      class="pl-2 border-l-8"
+      class="flex-1 pt-1 pb-2 pl-2 border-t border-l-8"
       :class="{
         'border-gray-300': row.type === 'text',
         'border-blue-300': row.type === 'song',
         'border-orange-300': row.type === 'jingle',
       }"
     >
+      <div>
+        <span class="text-sm font-semibold tracking-wide text-gray-500 uppercase font-source"
+          >{{ row.type }}
+        </span>
+        <span class="mx-1 text-gray-500">&middot;</span>
+        <span class="text-sm text-gray-500">{{ formatDuration(row.duration) }}</span>
+      </div>
+
       <component :is="rowComponent" :row="row" />
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, Component, PropType } from 'vue'
+import { defineComponent, Component, PropType, computed } from 'vue'
 
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
 import utc from 'dayjs/plugin/utc'
 
-import { ListRow } from '../store'
+import { useStore } from 'vuex'
+import { key, State, ListRow } from '../store'
 
 import SongItem from './SongItem.vue'
 import TalkItem from './TalkItem.vue'
@@ -40,6 +42,10 @@ dayjs.extend(utc)
 
 export default defineComponent({
   props: {
+    index: {
+      type: Number,
+      required: true,
+    },
     row: {
       type: Object as PropType<ListRow>,
       required: true,
@@ -52,6 +58,9 @@ export default defineComponent({
   },
   setup(props) {
     let rowComponent: Component
+    // @ts-expect-error
+    const store = useStore<State>(key)
+    const showDetails = computed(() => store.state.showDetails)
 
     switch (props.row.type) {
       case 'song':
@@ -68,6 +77,14 @@ export default defineComponent({
         break
     }
 
+    const startTime = () => {
+      if (props.index === 0) {
+        return showDetails.value.startTime
+      } else {
+        return '00:00'
+      }
+    }
+
     const formatDuration = (dur: string) => {
       if (dayjs.duration(dur, 'seconds').asMinutes() > 59) {
         return dayjs.utc(dayjs.duration(dur, 'seconds').asMilliseconds()).format('HH:mm:ss')
@@ -79,6 +96,7 @@ export default defineComponent({
     return {
       rowComponent,
       formatDuration,
+      startTime,
     }
   },
 })

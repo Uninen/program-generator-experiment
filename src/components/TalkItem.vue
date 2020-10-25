@@ -1,5 +1,4 @@
 <template>
-  <div class="text-sm font-semibold tracking-wide text-gray-400 uppercase font-source">Talk</div>
   <div class="text-lg text-gray-900">{{ row.text }}</div>
   <div>{{ row.comment }}</div>
 </template>

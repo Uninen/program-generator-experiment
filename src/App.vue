@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full min-h-screen bg-gray-100">
+  <div class="flex flex-col w-full min-h-0 bg-gray-100">
     <nav class="bg-black">
       <div class="px-4 mx-auto max-w-9xl sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16">
@@ -82,7 +82,12 @@
                 v-if="user.backstageNotifications || user.backstageMessages"
                 title="You have notifications on Backstage"
               >
-                <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <svg
+                  class="w-6 h-6"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
                   <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -93,8 +98,12 @@
               </a>
 
               <div class="relative flex flex-1 ml-3">
-                <div class="flex flex-row items-center justify-between flex-shrink-0">
-                  <div class="block mr-3 text-base text-slipmat-400">Admin View</div>
+                <div
+                  class="flex flex-row items-center justify-between flex-shrink-0"
+                >
+                  <div class="block mr-3 text-base text-slipmat-400">
+                    Admin View
+                  </div>
 
                   <a
                     class="block max-w-xs text-sm text-white rounded-full focus:outline-none focus:shadow-solid"
@@ -122,7 +131,12 @@
               x-bind:aria-expanded="open"
               @click="open = !open"
             >
-              <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+              <svg
+                class="w-6 h-6"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
                 <path
                   :class="{ 'inline-flex': !open }"
                   class="inline-flex"
@@ -246,16 +260,58 @@
     </nav>
     <main class="w-full mx-auto max-w-9xl sm:py-6 sm:px-6 lg:px-8">
       <!-- Content -->
-      <div v-if="!debug" class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600">
-        You are looking at a static and experimental development version of Slipmat Radio Program
-        Generator. The initial data on this page is static development data. No changes are
-        persisted, everything resets when you refresh the page. This is here only for debugging and
-        testing purposes.
+      <div
+        v-if="!debug"
+        class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600"
+      >
+        You are looking at a static and experimental development version of
+        Slipmat Radio Program Generator. The initial data on this page is static
+        development data. No changes are persisted, everything resets when you
+        refresh the page. This is here only for debugging and testing purposes.
       </div>
 
       <script-builder />
+
+      <div class="pt-6 mt-8 ml-8 mr-8 prose border-t border-gray-800 md:mr-0">
+        <h3>About</h3>
+
+        <p>
+          The idea behind this tool is to offer a realtime
+          <strong> collaboration tool for building radio show scripts </strong>
+          from pre-defined parts (like songs, jingles and talk sections).
+        </p>
+
+        <p>
+          Building the show script with a tool like this instead with something
+          like Google Docs has several benefits. This is actually designed for
+          the task so it has bespoke functionality like automatic timestamps and
+          easy editing and rearranging of sections. It can also easily be
+          integrated to other parts of Slipmat ecosystem so the overall user
+          experience will be much better.
+        </p>
+
+        <p>Some development ideas:</p>
+
+        <ul>
+          <li>Arrange items on the list by dragging</li>
+          <li>Lock items in time (ie. "news start exactly at 21:00" etc)</li>
+          <li>Import playlists from Spotify / Tidal etc</li>
+          <li>Import playlists from DJ software</li>
+          <li>Add integrate Slipmat chat for event hosts</li>
+        </ul>
+
+        <p>
+          This experiment is open source and available to study and poke over at
+          GitHub:
+          <a href="https://github.com/Uninen/program-generator-experiment"
+            >https://github.com/Uninen/program-generator-experiment</a
+          >
+        </p>
+      </div>
     </main>
-    <footer class="pt-8 pb-8 mt-20 text-lg text-center text-white bg-black text-shadow">
+    <footer
+      class="pt-8 pb-8 text-center text-white bg-black pb-8text-lg text-shadow"
+    >
       <strong>Slipmat.io</strong> Radio Script Builder
       {{ version }}
       <br />
