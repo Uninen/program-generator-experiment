@@ -298,6 +298,12 @@
           <li>Import playlists from Spotify / Tidal etc</li>
           <li>Import playlists from DJ software</li>
           <li>Add integrate Slipmat chat for event hosts</li>
+          <li>
+            Independent modes for editing and playing. In play mode the list
+            would sow controls like "Mark played", "Tweet" etc. (Ideally you
+            could easily switch between the two to allow editing the script
+            during the show if needed.)
+          </li>
         </ul>
 
         <p>
