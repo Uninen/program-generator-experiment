@@ -265,7 +265,7 @@
         class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600"
       >
         You are looking at a static and experimental development version of
-        Slipmat Radio Program Generator. The initial data on this page is static
+        Radio Script Builder. The initial data on this page is static
         development data. No changes are persisted, everything resets when you
         refresh the page. This is here only for debugging and testing purposes.
       </div>
@@ -301,11 +301,10 @@
         </ul>
 
         <p>
-          This experiment is open source and available to study and poke over at
-          GitHub:
+          This experiment is open source and
           <a href="https://github.com/Uninen/program-generator-experiment"
-            >https://github.com/Uninen/program-generator-experiment</a
-          >
+            >available to study and poke over at GitHub</a
+          >.
         </p>
       </div>
     </main>
