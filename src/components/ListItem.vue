@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-1 mt-2">
-    <div class="pr-3 text-xl font-semibold text-gray-600">
+    <div class="pr-3 text-xl font-semibold text-gray-600 cursor-move">
       {{ startTime(row.duration) }}
     </div>
     <div
@@ -12,11 +12,14 @@
       }"
     >
       <div>
-        <span class="text-sm font-semibold tracking-wide text-gray-500 uppercase font-source"
+        <span
+          class="text-sm font-semibold tracking-wide text-gray-500 uppercase font-source"
           >{{ row.type }}
         </span>
         <span class="mx-1 text-gray-500">&middot;</span>
-        <span class="text-sm text-gray-500">{{ formatDuration(row.duration) }}</span>
+        <span class="text-sm text-gray-500">{{
+          formatDuration(row.duration)
+        }}</span>
       </div>
 
       <component :is="rowComponent" :row="row" />
@@ -87,9 +90,13 @@ export default defineComponent({
 
     const formatDuration = (dur: string) => {
       if (dayjs.duration(dur, 'seconds').asMinutes() > 59) {
-        return dayjs.utc(dayjs.duration(dur, 'seconds').asMilliseconds()).format('HH:mm:ss')
+        return dayjs
+          .utc(dayjs.duration(dur, 'seconds').asMilliseconds())
+          .format('HH:mm:ss')
       } else {
-        return dayjs.utc(dayjs.duration(dur, 'seconds').asMilliseconds()).format('mm:ss')
+        return dayjs
+          .utc(dayjs.duration(dur, 'seconds').asMilliseconds())
+          .format('mm:ss')
       }
     }
 

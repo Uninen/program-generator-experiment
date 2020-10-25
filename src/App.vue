@@ -306,6 +306,12 @@
             >available to study and poke over at GitHub</a
           >.
         </p>
+
+        <h3>Notes</h3>
+
+        <ul>
+          <li>The row starting times (first column) are not yet working</li>
+        </ul>
       </div>
     </main>
     <footer

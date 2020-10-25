@@ -41,12 +41,11 @@
             Program for {{ showDetails.title }}
           </h2>
 
-          <list-item
-            v-for="(row, index) in rows"
-            :key="row"
-            :index="index"
-            :row="row"
-          />
+          <ol id="programlist">
+            <li v-for="(row, index) in rows" :key="row">
+              <list-item :index="index" :row="row" />
+            </li>
+          </ol>
         </div>
       </div>
     </div>
@@ -54,7 +53,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import Sortable from 'sortablejs'
+
+import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { key, State } from '../store'
 
@@ -71,6 +72,11 @@ export default defineComponent({
   setup() {
     // @ts-expect-error
     const store = useStore<State>(key)
+
+    onMounted(() => {
+      const el = document.getElementById('programlist')
+      Sortable.create(el!)
+    })
 
     return {
       debug: process.env.NODE_ENV === 'development',
