@@ -253,14 +253,14 @@
         testing purposes.
       </div>
 
-      <program-generator></program-generator>
+      <script-builder />
     </main>
     <footer class="pt-8 pb-8 mt-20 text-lg text-center text-white bg-black text-shadow">
-      <strong>Slipmat.io</strong> Program Generator
+      <strong>Slipmat.io</strong> Radio Script Builder
       {{ version }}
       <br />
       <div class="text-base text-gray-100">
-        Community for DJs and music lovers.
+        Slipmat.io is a community for DJs and music lovers.
         <br />
         <!-- <span class="text-sm text-gray-400">Built on {{ buildTime }}</span> -->
       </div>
@@ -271,11 +271,11 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
-import ProgramGenerator from './components/ProgramGenerator.vue'
+import ScriptBuilder from './components/ScriptBuilder.vue'
 
 export default defineComponent({
   components: {
-    ProgramGenerator,
+    ScriptBuilder,
   },
   setup() {
     const user = 'uninen'

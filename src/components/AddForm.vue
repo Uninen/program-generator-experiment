@@ -2,63 +2,67 @@
   <div class="mb-6">
     <h3 class="text-xl font-semibold text-gray-900 font-source">Add Row</h3>
 
-    <form action="" clasS="form">
+    <form action="" class="form">
       <div class="mt-4">
-        <span class="font-bold text-gray-700 font-source">Type</span>
+        <span class="required label">Type</span>
         <div class="mt-2">
-          <label class="inline-flex items-center">
+          <label class="inline-flex items-center mr-3 cursor-pointer">
             <input
               type="radio"
               v-model="rowType"
-              class="form-radio"
+              class="cursor-pointer form-radio"
+              name="accountType"
+              value="talk"
+            />
+            <span class="ml-2">Talk</span>
+          </label>
+          <label class="inline-flex items-center mr-3 cursor-pointer">
+            <input
+              type="radio"
+              v-model="rowType"
+              class="cursor-pointer form-radio"
               name="accountType"
               value="song"
             />
             <span class="ml-2 font-source">Song</span>
           </label>
-          <label class="inline-flex items-center ml-6">
+          <label class="inline-flex items-center cursor-pointer">
             <input
               type="radio"
               v-model="rowType"
-              class="form-radio"
+              class="cursor-pointer form-radio"
               name="accountType"
-              value="talk"
+              value="jingle"
             />
-            <span class="ml-2 font-source">Talk</span>
+            <span class="ml-2 font-source">Jingle</span>
           </label>
         </div>
       </div>
 
       <label class="block">
-        <span class="font-bold text-gray-700 font-source">Length</span>
+        <span class="required">Duration</span>
         <input
           class="block w-full mt-1 form-input"
           placeholder="For example 03:30"
-          v-model="length"
+          v-model="duration"
         />
       </label>
 
       <label v-if="rowType === 'song'" class="block">
-        <span class="font-bold text-gray-700 font-source">{{ labelText }}</span>
+        <span class="required">{{ labelText }}</span>
         <input class="block w-full mt-1 form-input" v-model="song" />
       </label>
       <label v-else class="block">
-        <span class="font-bold text-gray-700 font-source">{{ labelText }}</span>
+        <span class="required">{{ labelText }}</span>
         <input class="block w-full mt-1 form-input" v-model="text" />
       </label>
 
       <label class="block">
-        <span class="text-gray-700 font-source">Comment</span>
+        <span>Comment</span>
         <input class="block w-full mt-1 form-input" v-model="comment" />
       </label>
 
-      <button
-        class="px-4 py-1 mt-4 font-semibold text-white bg-blue-500 border rounded-md shadow-md font-source"
-        type="submit"
-        @click.prevent="addRow"
-      >
-        Add
-      </button>
+      <button class="btn" type="submit" @click.prevent="addRow">Add</button>
     </form>
   </div>
 </template>
@@ -76,8 +80,8 @@ export default defineComponent({
   setup() {
     // @ts-expect-error
     const store = useStore<State>(key)
-    const rowType = ref('song')
-    const length = ref(0)
+    const rowType = ref('talk')
+    const duration = ref(0)
     const song = ref('')
     const text = ref('')
     const comment = ref('')
@@ -85,7 +89,7 @@ export default defineComponent({
       if (rowType.value === 'song') {
         return 'Artist - Song title'
       } else {
-        return 'Text'
+        return 'Topic'
       }
     })
 
@@ -94,7 +98,7 @@ export default defineComponent({
       store.commit('increment')
       store.commit('addRow', {
         type: rowType.value,
-        length: length.value,
+        duration: duration.value,
         song: song.value,
         text: text.value,
         comment: comment.value,
@@ -106,7 +110,7 @@ export default defineComponent({
       labelText,
       addRow,
       rowCount: computed(() => store.state.rows.length),
-      length,
+      duration,
       song,
       text,
       comment,
