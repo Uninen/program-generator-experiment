@@ -60,10 +60,14 @@ export default defineComponent({
     JingleItem,
   },
   setup(props) {
-    let rowComponent: Component
     // @ts-expect-error
     const store = useStore<State>(key)
     const showDetails = computed(() => store.state.showDetails)
+    let rowComponent: Component
+    const startDate = dayjs(
+      `2020-01-01 ${showDetails.value.startTime}`,
+      'YYYY-MM-DD HH:mm'
+    )
 
     switch (props.row.type) {
       case 'song':
@@ -82,9 +86,16 @@ export default defineComponent({
 
     const startTime = () => {
       if (props.index === 0) {
-        return showDetails.value.startTime
+        return startDate.format('HH:mm:ss')
       } else {
-        return '00:00'
+        let fromStart = 0
+        let rowIndex = props.index - 1
+
+        for (let i = 0; i <= rowIndex; i++) {
+          fromStart += store.state.rows[i].duration
+        }
+
+        return startDate.add(fromStart, 'second').format('HH:mm:ss')
       }
     }
 

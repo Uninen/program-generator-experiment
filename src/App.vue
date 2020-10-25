@@ -290,11 +290,17 @@
           experience will be much better.
         </p>
 
-        <p>Some development ideas:</p>
+        <p>TODO:</p>
+        <ul>
+          <li><s>Arrange items on the list by dragging</s></li>
+          <li>Allow editing of items</li>
+          <li>Lock items in time (ie. "news start exactly at 21:00" etc)</li>
+          <li>Calculate remaining empty time to next segment or to show end</li>
+        </ul>
+
+        <p>Some further development ideas:</p>
 
         <ul>
-          <li>Arrange items on the list by dragging</li>
-          <li>Lock items in time (ie. "news start exactly at 21:00" etc)</li>
           <li>Import playlists from Spotify / Tidal etc</li>
           <li>Import playlists from DJ software</li>
           <li>Add integrate Slipmat chat for event hosts</li>
@@ -312,12 +318,6 @@
             >available to study and poke over at GitHub</a
           >.
         </p>
-
-        <h3>Notes</h3>
-
-        <ul>
-          <li>The row starting times (first column) are not yet working</li>
-        </ul>
       </div>
     </main>
     <footer

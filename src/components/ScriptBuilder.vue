@@ -75,7 +75,17 @@ export default defineComponent({
 
     onMounted(() => {
       const el = document.getElementById('programlist')
-      Sortable.create(el!)
+      Sortable.create(el!, {
+        onEnd: function (/**Event*/ evt) {
+          console.log(`changed ${evt.oldIndex} to ${evt.newIndex}`)
+          store.commit('swapRows', {
+            from: evt.oldIndex,
+            to: evt.newIndex,
+          })
+        },
+      })
+
+      // [ list[y], list[x] ] = [ list[x], list[y] ]
     })
 
     return {

@@ -22,6 +22,7 @@ export interface State {
   showDetails: ShowDetails
   rows: ListRow[]
 }
+
 export const key: InjectionKey<Store<State>> = Symbol()
 export const store = createStore<State>({
   state: {
@@ -87,6 +88,18 @@ export const store = createStore<State>({
   mutations: {
     addRow(state, payload: ListRow) {
       state.rows.push(payload)
+    },
+    swapRows(
+      state,
+      payload: {
+        from: number
+        to: number
+      }
+    ) {
+      ;[state.rows[payload.to], state.rows[payload.from]] = [
+        state.rows[payload.from],
+        state.rows[payload.to],
+      ]
     },
   },
 })
