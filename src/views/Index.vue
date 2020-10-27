@@ -1,5 +1,5 @@
 <template>
-  <div class="px-8 scriptbuilder">
+  <div class="px-2 md:px-4 lg:px-8 scriptbuilder">
     <h1 class="mb-6 text-2xl font-bold font-source">Radio Script Builder</h1>
 
     <div class="flex flex-col w-full md:flex-row-reverse">
