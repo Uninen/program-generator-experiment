@@ -1,10 +1,6 @@
 <template>
   <div class="px-8 scriptbuilder">
-    <h1 class="mb-6 text-2xl font-bold font-source">
-      Radio Script Builder <br /><span class="text-gray-500"
-        >(experimental demo)</span
-      >
-    </h1>
+    <h1 class="mb-6 text-2xl font-bold font-source">Radio Script Builder</h1>
 
     <div class="flex flex-col w-full md:flex-row-reverse">
       <div class="md:w-4/12">
