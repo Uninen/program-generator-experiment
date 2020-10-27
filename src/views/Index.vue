@@ -45,7 +45,7 @@
             </li>
             <li>
               <div
-                class="mt-2 text-lg font-semibold text-gray-500 cursor-pointer select-none"
+                class="mt-2 text-lg font-semibold text-gray-500 cursor-pointer select-none font-source"
                 @click="toggleAddForm"
               >
                 <template v-if="!addFormOpen">+</template>

@@ -32,7 +32,7 @@
             formatDuration(row.duration)
           }}</span>
         </div>
-        <div class="">
+        <div class="hidden">
           <a
             class="text-sm text-gray-400 uppercase select-none text-source"
             href=""

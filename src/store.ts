@@ -50,7 +50,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 324,
-        bpm: 0,
+        bpm: 165,
         song: 'The Midnight - Days of Thunder',
       },
       {
@@ -72,7 +72,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 254,
-        bpm: 0,
+        bpm: 112,
         song: 'Jessie Frye w/ Timecop1983 - Faded Memory',
       },
       {
@@ -88,7 +88,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 348,
-        bpm: 0,
+        bpm: 102,
         song: 'The 1975 - Somebody Else',
       },
       {
@@ -103,7 +103,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 223,
-        bpm: 0,
+        bpm: 91,
         song: 'Michael Oakley - California',
       },
       {
@@ -111,7 +111,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 291,
-        bpm: 0,
+        bpm: 116,
         song: 'Le Cassette - Digital Power',
       },
     ],

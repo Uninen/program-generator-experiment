@@ -5,7 +5,7 @@
     </div>
     <div
       v-if="row.bpm > 0"
-      class="text-lg font-bold text-gray-400 select-none"
+      class="text-base text-gray-400 select-none"
       @click="toggleSelected"
     >
       {{ row.bpm }} BPM
