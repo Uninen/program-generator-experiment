@@ -90,9 +90,7 @@ export default defineComponent({
     })
 
     const addRow = () => {
-      console.log('add row')
-      store.commit('increment')
-      store.commit('addRow', {
+      store.commit('ADD_ROW', {
         type: rowType.value,
         duration: duration.value,
         song: song.value,

@@ -28,24 +28,30 @@
             href=""
             @click.prevent="toggleSelected"
           >
-            <template v-if="row.isSelected">De-select</template>
+            <template v-if="row.isSelected">Deselect</template>
             <template v-else>Select</template>
           </a>
         </div>
       </div>
 
-      <component :is="rowComponent" :row="row" />
+      <component :is="rowComponent" :row="row" :index="index" />
 
       <div v-if="row.isSelected">
-        <a href="" @click.prevent="deleteRow" class="text-sm text-red-600"
-          >Delete</a
-        >
+        <div>
+          <a href="" @click.prevent="deleteRow" class="text-sm text-red-600"
+            >Delete</a
+          >
+        </div>
+
+        <div v-if="row.type === 'song'">
+          <tempo-button v-on:bpm="updateBpm" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, Component, PropType, computed } from 'vue'
+import { defineComponent, Component, PropType, computed, provide } from 'vue'
 
 import dayjs from 'dayjs'
 import duration from 'dayjs/plugin/duration'
@@ -54,9 +60,12 @@ import utc from 'dayjs/plugin/utc'
 import { useStore } from 'vuex'
 import { key, State, ListRow } from '../store'
 
-import SongItem from './SongItem.vue'
-import TalkItem from './TalkItem.vue'
-import JingleItem from './JingleItem.vue'
+import SongItem from './list-items/SongItem.vue'
+import TalkItem from './list-items/TalkItem.vue'
+import JingleItem from './list-items/JingleItem.vue'
+import TempoButton from './TempoButton.vue'
+
+import { setRowIsSelected } from '../composition'
 
 dayjs.extend(duration)
 dayjs.extend(utc)
@@ -76,6 +85,7 @@ export default defineComponent({
     SongItem,
     TalkItem,
     JingleItem,
+    TempoButton,
   },
   setup(props) {
     // @ts-expect-error
@@ -138,17 +148,24 @@ export default defineComponent({
     }
 
     const toggleSelected = () => {
-      store.commit('setRowIsSelected', {
-        index: props.index,
-        isSelected: !props.row.isSelected,
-      })
+      setRowIsSelected(store, props.index, !props.row.isSelected)
     }
 
     const deleteRow = () => {
-      store.commit('deleteRow', {
+      store.commit('DELETE_ROW', {
         index: props.index,
       })
     }
+
+    const updateBpm = (newBpm: number) => {
+      store.commit('UPDATE_ROW_ATTR', {
+        index: props.index,
+        attr: 'bpm',
+        value: newBpm,
+      })
+    }
+
+    provide('toggleSelected', toggleSelected)
 
     return {
       rowComponent,
@@ -156,6 +173,7 @@ export default defineComponent({
       startTime,
       toggleSelected,
       deleteRow,
+      updateBpm,
     }
   },
 })

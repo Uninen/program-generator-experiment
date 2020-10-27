@@ -1,17 +1,13 @@
 <template>
   <div>
-    <h3>Tempo</h3>
-    <div>
-      {{ tempo }}
-    </div>
-    <button @click="tapTempo" class="btn">Tap</button>
+    <button @click="tapTempo" class="btn">Tap tempo</button>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  setup() {
+  setup(_, { emit }) {
     const tempo = ref(0)
 
     let diffs: number[] = []
@@ -38,6 +34,7 @@ export default defineComponent({
               return result + diff
             }) / diffs.length
           tempo.value = Math.round((1 / (average / 1000)) * 60)
+          emit('bpm', tempo.value)
 
           if (diffs.length > 9) {
             diffs.shift()

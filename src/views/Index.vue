@@ -30,10 +30,6 @@
 
           <add-form></add-form>
         </div>
-
-        <div class="mb-6">
-          <tempo-button />
-        </div>
       </div>
       <div class="md:w-8/12">
         <div class="px-4 py-3 bg-white rounded-sm shadow md:mr-6">
@@ -62,14 +58,12 @@ import { key, State } from '../store'
 import ListItem from '../components/ListItem.vue'
 import AddForm from '../components/AddForm.vue'
 import ShowDetailsForm from '../components/ShowDetailsForm.vue'
-import TempoButton from '../components/TempoButton.vue'
 
 export default defineComponent({
   components: {
     ListItem,
     AddForm,
     ShowDetailsForm,
-    TempoButton,
   },
   setup() {
     // @ts-expect-error
@@ -81,7 +75,7 @@ export default defineComponent({
         handle: '.handle',
         onEnd: function (/**Event*/ evt) {
           console.log(`changed ${evt.oldIndex} to ${evt.newIndex}`)
-          store.commit('swapRows', {
+          store.commit('SWAP_ROWS', {
             from: evt.oldIndex,
             to: evt.newIndex,
           })

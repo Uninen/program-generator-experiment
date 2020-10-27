@@ -1,10 +1,12 @@
 <template>
-  <div class="text-lg text-gray-900">{{ row.text }}</div>
+  <div class="text-lg text-gray-900" @click="toggleSelected">
+    {{ row.text }}
+  </div>
   <div>{{ row.comment }}</div>
 </template>
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { ListRow } from '../store'
+import { ListRow } from '../../store'
 
 export default defineComponent({
   props: {
@@ -12,6 +14,11 @@ export default defineComponent({
       type: Object as PropType<ListRow>,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
+  inject: ['toggleSelected'],
 })
 </script>

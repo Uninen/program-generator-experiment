@@ -15,11 +15,13 @@ export interface ListRow {
   song?: string
   text?: string
   comment?: string
+  bpm?: number
 }
 export interface State {
   ui: {
     showDetailsFormOpen: boolean
     displaySeconds: boolean
+    mode: 'edit' | 'play'
   }
   showDetails: ShowDetails
   rows: ListRow[]
@@ -31,6 +33,7 @@ export const store = createStore<State>({
     ui: {
       showDetailsFormOpen: false,
       displaySeconds: false,
+      mode: 'edit',
     },
     showDetails: {
       title: 'RetroWaveStation #1',
@@ -43,6 +46,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 324,
+        bpm: 0,
         song: 'The Midnight - Days of Thunder',
       },
       {
@@ -64,6 +68,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 254,
+        bpm: 0,
         song: 'Jessie Frye w/ Timecop1983 - Faded Memory',
       },
       {
@@ -71,6 +76,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 348,
+        bpm: 0,
         song: 'The 1975 - Somebody Else',
       },
       {
@@ -85,6 +91,7 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 223,
+        bpm: 0,
         song: 'Michael Oakley - California',
       },
       {
@@ -92,15 +99,17 @@ export const store = createStore<State>({
         isFixed: false,
         isSelected: false,
         duration: 291,
+        bpm: 0,
         song: 'Le Cassette - Digital Power',
       },
     ],
   },
   mutations: {
-    addRow(state, payload: ListRow) {
+    ADD_ROW(state, payload: ListRow) {
       state.rows.push(payload)
     },
-    deleteRow(
+
+    DELETE_ROW(
       state,
       payload: {
         index: number
@@ -108,16 +117,20 @@ export const store = createStore<State>({
     ) {
       state.rows.splice(payload.index, 1)
     },
-    setRowIsSelected(
+
+    UPDATE_ROW_ATTR(
       state,
       payload: {
         index: number
-        isSelected: boolean
+        attr: string
+        value: unknown
       }
     ) {
-      state.rows[payload.index].isSelected = payload.isSelected
+      // @ts-ignore
+      state.rows[payload.index][payload.attr] = payload.value
     },
-    swapRows(
+
+    SWAP_ROWS(
       state,
       payload: {
         from: number

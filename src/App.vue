@@ -318,6 +318,31 @@
             >available to study and poke over at GitHub</a
           >.
         </p>
+
+        <h3>Changes</h3>
+
+        <ul>
+          <li>
+            <strong>NEXT</strong>
+            <ul>
+              <li>
+                New: tap tempo. Select any song and click tap tempo button in
+                tempo for few times to add BPM to a song.
+              </li>
+              <li>New: rows can now be deleted</li>
+              <li>Enhancement: UI tweaks</li>
+            </ul>
+          </li>
+          <li>
+            <strong>2020-10-25 - 0.1 - First version</strong>
+            <ul>
+              <li>
+                Basic demo with automatic starting time, rearranging w/
+                drag&drop and adding of rows
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </main>
     <footer
