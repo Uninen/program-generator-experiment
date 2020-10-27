@@ -1,17 +1,27 @@
 <template>
-  <div class="flex flex-1 mt-2">
-    <div class="pr-3 text-xl font-semibold text-gray-600 cursor-move handle">
+  <div
+    class="flex flex-1"
+    :class="{
+      'mt-4 mb-3': row.type === 'section',
+      'mt-2': row.type !== 'section',
+    }"
+  >
+    <div
+      class="text-lg font-semibold text-gray-700 cursor-move handle"
+      :class="{ 'pr-3': row.type !== 'section' }"
+    >
       {{ startTime(row.duration) }}
     </div>
     <div
-      class="flex-1 pt-1 pb-2 pl-2 border-t border-l-8"
+      class="flex-1 pl-2"
       :class="{
-        'border-gray-300': row.type === 'text',
-        'border-blue-300': row.type === 'song',
-        'border-orange-300': row.type === 'jingle',
+        'pt-1 pb-2 border-t border-l-8 border-gray-300': row.type === 'talk',
+        'pt-1 pb-2 border-t border-l-8 border-blue-300': row.type === 'song',
+        'pt-1 pb-2 border-t border-l-8 border-orange-300':
+          row.type === 'jingle',
       }"
     >
-      <div class="flex justify-between mr-1">
+      <div v-if="row.type !== 'section'" class="flex justify-between mr-1">
         <div @click.prevent="toggleSelected">
           <span
             class="text-sm font-semibold tracking-wide text-gray-500 uppercase select-none font-source"
@@ -37,13 +47,11 @@
       <component :is="rowComponent" :row="row" :index="index" />
 
       <div v-if="row.isSelected">
-        <div>
-          <a href="" @click.prevent="deleteRow" class="text-sm text-red-600"
-            >Delete</a
-          >
+        <div class="inline-block mr-2">
+          <button @click="deleteRow" class="btn delete">Delete</button>
         </div>
 
-        <div v-if="row.type === 'song'">
+        <div v-if="row.type === 'song'" class="inline-block">
           <tempo-button v-on:bpm="updateBpm" />
         </div>
       </div>
@@ -63,6 +71,7 @@ import { key, State, ListRow } from '../store'
 import SongItem from './list-items/SongItem.vue'
 import TalkItem from './list-items/TalkItem.vue'
 import JingleItem from './list-items/JingleItem.vue'
+import SectionItem from './list-items/SectionItem.vue'
 import TempoButton from './TempoButton.vue'
 
 import { setRowIsSelected } from '../composition'
@@ -85,6 +94,7 @@ export default defineComponent({
     SongItem,
     TalkItem,
     JingleItem,
+    SectionItem,
     TempoButton,
   },
   setup(props) {
@@ -106,6 +116,9 @@ export default defineComponent({
         break
       case 'jingle':
         rowComponent = JingleItem
+        break
+      case 'section':
+        rowComponent = SectionItem
         break
       default:
         rowComponent = SongItem
@@ -152,13 +165,15 @@ export default defineComponent({
     }
 
     const deleteRow = () => {
-      store.commit('DELETE_ROW', {
-        index: props.index,
-      })
+      if (confirm('Are you sure?')) {
+        store.commit('DELETE_ROW', {
+          index: props.index,
+        })
+      }
     }
 
     const updateBpm = (newBpm: number) => {
-      store.commit('UPDATE_ROW_ATTR', {
+      store.commit('SET_ROW_ATTR', {
         index: props.index,
         attr: 'bpm',
         value: newBpm,

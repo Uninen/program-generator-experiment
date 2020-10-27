@@ -6,7 +6,7 @@ export const setRowIsSelected = (
   index: number,
   value: boolean
 ) => {
-  store.commit('UPDATE_ROW_ATTR', {
+  store.commit('SET_ROW_ATTR', {
     index,
     attr: 'isSelected',
     value,

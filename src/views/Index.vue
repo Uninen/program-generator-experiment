@@ -18,17 +18,19 @@
                 <span class="font-semibold">Start time</span>:
                 {{ showDetails.startTime }}
               </li>
-              <li><span class="font-semibold">Duration</span>: 2h</li>
+              <li>
+                <span class="font-semibold">Duration</span>:
+                {{ showDetails.duration }} min
+              </li>
+              <li>Currently scripted: {{ totalProgramMinutes }} min</li>
+              <li>
+                Time to fill: {{ emptyProgramMinutes }} min (~{{
+                  neededSongsEstimate
+                }}
+                songs)
+              </li>
             </ul>
           </div>
-        </div>
-
-        <div class="mb-6">
-          <h3 class="text-xl font-semibold text-gray-900 font-source">
-            Add Row
-          </h3>
-
-          <add-form></add-form>
         </div>
       </div>
       <div class="md:w-8/12">
@@ -40,6 +42,19 @@
           <ol id="programlist">
             <li v-for="(row, index) in rows" :key="row">
               <list-item :index="index" :row="row" />
+            </li>
+            <li>
+              <div
+                class="mt-2 text-lg font-semibold text-gray-500 cursor-pointer select-none"
+                @click="toggleAddForm"
+              >
+                <template v-if="!addFormOpen">+</template>
+                <template v-else>-</template>
+                Add row
+              </div>
+              <div v-if="addFormOpen" class="mb-6">
+                <add-form></add-form>
+              </div>
             </li>
           </ol>
         </div>
@@ -53,7 +68,7 @@ import Sortable from 'sortablejs'
 
 import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { key, State } from '../store'
+import { key, State, ListRow } from '../store'
 
 import ListItem from '../components/ListItem.vue'
 import AddForm from '../components/AddForm.vue'
@@ -68,6 +83,7 @@ export default defineComponent({
   setup() {
     // @ts-expect-error
     const store = useStore<State>(key)
+    const addFormOpen = computed(() => store.state.ui.addFormOpen)
 
     onMounted(() => {
       const el = document.getElementById('programlist')
@@ -81,15 +97,48 @@ export default defineComponent({
           })
         },
       })
-
-      // [ list[y], list[x] ] = [ list[x], list[y] ]
     })
+    const totalProgramSeconds = computed(() => {
+      return store.state.rows.reduce((sum: number, row: ListRow) => {
+        return sum + row.duration
+      }, 0)
+    })
+
+    const totalProgramMinutes = computed(() => {
+      return Math.round(totalProgramSeconds.value / 60)
+    })
+
+    const emptyProgramSeconds = computed(() => {
+      return store.state.showDetails.duration * 60 - totalProgramSeconds.value
+    })
+
+    const emptyProgramMinutes = computed(() => {
+      return store.state.showDetails.duration - totalProgramMinutes.value
+    })
+
+    const neededSongsEstimate = computed(() => {
+      return Math.round(
+        emptyProgramSeconds.value / store.state.showDetails.averageSongLength
+      )
+    })
+
+    const toggleAddForm = () => {
+      store.commit('SET_UI_ATTR', {
+        attr: 'addFormOpen',
+        value: !store.state.ui.addFormOpen,
+      })
+    }
 
     return {
       debug: process.env.NODE_ENV === 'development',
       rows: computed(() => store.state.rows),
       showDetails: computed(() => store.state.showDetails),
       showDetailsFormOpen: computed(() => store.state.ui.showDetailsFormOpen),
+      totalProgramMinutes,
+      emptyProgramMinutes,
+      neededSongsEstimate,
+      addFormOpen,
+      toggleAddForm,
     }
   },
 })
@@ -113,5 +162,12 @@ export default defineComponent({
 }
 .scriptbuilder .btn:hover {
   @apply bg-blue-600 shadow-none;
+}
+
+.scriptbuilder .btn.delete {
+  @apply bg-red-600;
+}
+.scriptbuilder .btn.delete:hover {
+  @apply bg-red-600;
 }
 </style>

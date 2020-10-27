@@ -306,7 +306,7 @@
           <li>Add integrate Slipmat chat for event hosts</li>
           <li>
             Independent modes for editing and playing. In play mode the list
-            would sow controls like "Mark played", "Tweet" etc. (Ideally you
+            would show controls like "Mark played", "Tweet" etc. (Ideally you
             could easily switch between the two to allow editing the script
             during the show if needed.)
           </li>
@@ -329,7 +329,13 @@
                 New: tap tempo. Select any song and click tap tempo button in
                 tempo for few times to add BPM to a song.
               </li>
-              <li>New: rows can now be deleted</li>
+              <li>
+                New: added calculations for scripted and unscripted minutes +
+                estimation of number of needed songs (based on given song
+                average length)
+              </li>
+              <li>New: rows can now be selected and deleted</li>
+              <li>New: added new section row type</li>
               <li>Enhancement: UI tweaks</li>
             </ul>
           </li>

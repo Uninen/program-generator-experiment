@@ -5,10 +5,11 @@ export interface ShowDetails {
   title: string
   startTime: string
   duration: number
+  averageSongLength: number
 }
 
 export interface ListRow {
-  type: 'song' | 'talk' | 'jingle'
+  type: 'song' | 'talk' | 'jingle' | 'section'
   isSelected: boolean
   isFixed: boolean
   duration: number
@@ -19,6 +20,7 @@ export interface ListRow {
 }
 export interface State {
   ui: {
+    addFormOpen: boolean
     showDetailsFormOpen: boolean
     displaySeconds: boolean
     mode: 'edit' | 'play'
@@ -31,6 +33,7 @@ export const key: InjectionKey<Store<State>> = Symbol()
 export const store = createStore<State>({
   state: {
     ui: {
+      addFormOpen: false,
       showDetailsFormOpen: false,
       displaySeconds: false,
       mode: 'edit',
@@ -38,7 +41,8 @@ export const store = createStore<State>({
     showDetails: {
       title: 'RetroWaveStation #1',
       startTime: '22:00',
-      duration: 7200,
+      duration: 120,
+      averageSongLength: 240,
     },
     rows: [
       {
@@ -70,6 +74,14 @@ export const store = createStore<State>({
         duration: 254,
         bpm: 0,
         song: 'Jessie Frye w/ Timecop1983 - Faded Memory',
+      },
+      {
+        type: 'section',
+        isFixed: false,
+        isSelected: false,
+        duration: 0,
+        bpm: 0,
+        text: 'Second half',
       },
       {
         type: 'song',
@@ -118,7 +130,7 @@ export const store = createStore<State>({
       state.rows.splice(payload.index, 1)
     },
 
-    UPDATE_ROW_ATTR(
+    SET_ROW_ATTR(
       state,
       payload: {
         index: number
@@ -128,6 +140,17 @@ export const store = createStore<State>({
     ) {
       // @ts-ignore
       state.rows[payload.index][payload.attr] = payload.value
+    },
+
+    SET_UI_ATTR(
+      state,
+      payload: {
+        attr: string
+        value: unknown
+      }
+    ) {
+      // @ts-ignore
+      state.ui[payload.attr] = payload.value
     },
 
     SWAP_ROWS(

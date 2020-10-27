@@ -2,7 +2,17 @@
   <form action="" class="form">
     <div class="mt-4">
       <span class="required label">Type</span>
-      <div class="mt-2">
+      <div>
+        <label class="inline-flex items-center mr-3 cursor-pointer">
+          <input
+            type="radio"
+            v-model="rowType"
+            class="cursor-pointer form-radio"
+            name="accountType"
+            value="song"
+          />
+          <span class="ml-2 font-source">Song</span>
+        </label>
         <label class="inline-flex items-center mr-3 cursor-pointer">
           <input
             type="radio"
@@ -19,9 +29,9 @@
             v-model="rowType"
             class="cursor-pointer form-radio"
             name="accountType"
-            value="song"
+            value="jingle"
           />
-          <span class="ml-2 font-source">Song</span>
+          <span class="ml-2 font-source">Jingle</span>
         </label>
         <label class="inline-flex items-center cursor-pointer">
           <input
@@ -29,35 +39,41 @@
             v-model="rowType"
             class="cursor-pointer form-radio"
             name="accountType"
-            value="jingle"
+            value="section"
           />
-          <span class="ml-2 font-source">Jingle</span>
+          <span class="ml-2 font-source">Section</span>
         </label>
       </div>
     </div>
 
-    <label class="block">
-      <span class="required">Duration</span>
-      <input
-        class="block w-full mt-1 form-input"
-        placeholder="For example 03:30"
-        v-model="duration"
-      />
-    </label>
+    <div class="mt-1" v-if="rowType !== 'section'">
+      <label class="block">
+        <span class="required">Duration</span>
+        <input
+          class="block w-full mt-1 form-input"
+          placeholder="For example 3:30"
+          v-model="duration"
+        />
+      </label>
+    </div>
 
-    <label v-if="rowType === 'song'" class="block">
-      <span class="required">{{ labelText }}</span>
-      <input class="block w-full mt-1 form-input" v-model="song" />
-    </label>
-    <label v-else class="block">
-      <span class="required">{{ labelText }}</span>
-      <input class="block w-full mt-1 form-input" v-model="text" />
-    </label>
+    <div class="mt-2">
+      <label v-if="rowType === 'song'" class="block">
+        <span class="required">{{ labelText }}</span>
+        <input class="block w-full mt-1 form-input" v-model="song" />
+      </label>
+      <label v-else class="block">
+        <span class="required">{{ labelText }}</span>
+        <input class="block w-full mt-1 form-input" v-model="text" />
+      </label>
+    </div>
 
-    <label class="block">
-      <span>Comment</span>
-      <input class="block w-full mt-1 form-input" v-model="comment" />
-    </label>
+    <div class="mt-2" v-if="rowType !== 'section'">
+      <label class="block">
+        <span>Comment</span>
+        <input class="block w-full mt-1 form-input" v-model="comment" />
+      </label>
+    </div>
 
     <button class="btn" type="submit" @click.prevent="addRow">Add</button>
   </form>
@@ -76,23 +92,31 @@ export default defineComponent({
   setup() {
     // @ts-expect-error
     const store = useStore<State>(key)
-    const rowType = ref('talk')
-    const duration = ref(0)
+    const rowType = ref('song')
+    const duration = ref('')
     const song = ref('')
     const text = ref('')
     const comment = ref('')
     const labelText = computed(() => {
       if (rowType.value === 'song') {
-        return 'Artist - Song title'
+        return 'Artist - Song'
+      } else if (rowType.value === 'jingle') {
+        return 'Name'
+      } else if (rowType.value === 'section') {
+        return 'Text'
       } else {
         return 'Topic'
       }
     })
 
     const addRow = () => {
+      let dur = parseInt(duration.value)
+      if (rowType.value === 'section') {
+        dur = 0
+      }
       store.commit('ADD_ROW', {
         type: rowType.value,
-        duration: duration.value,
+        duration: dur,
         song: song.value,
         text: text.value,
         comment: comment.value,
