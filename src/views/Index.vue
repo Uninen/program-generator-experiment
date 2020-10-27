@@ -63,10 +63,10 @@ import { defineComponent, computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 import { key, State } from '../store'
 
-import ListItem from './ListItem.vue'
-import AddForm from './AddForm.vue'
-import ShowDetailsForm from './ShowDetailsForm.vue'
-import TempoButton from './TempoButton.vue'
+import ListItem from '../components/ListItem.vue'
+import AddForm from '../components/AddForm.vue'
+import ShowDetailsForm from '../components/ShowDetailsForm.vue'
+import TempoButton from '../components/TempoButton.vue'
 
 export default defineComponent({
   components: {

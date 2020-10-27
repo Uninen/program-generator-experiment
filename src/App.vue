@@ -270,7 +270,7 @@
         refresh the page. This is here only for debugging and testing purposes.
       </div>
 
-      <script-builder />
+      <router-view></router-view>
 
       <div class="pt-6 mt-8 ml-8 mr-8 prose border-t border-gray-800 md:mr-0">
         <h3>About</h3>
@@ -338,12 +338,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
-import ScriptBuilder from './components/ScriptBuilder.vue'
-
 export default defineComponent({
-  components: {
-    ScriptBuilder,
-  },
   setup() {
     const user = 'uninen'
     const isDj = true
