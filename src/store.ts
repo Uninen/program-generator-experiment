@@ -9,6 +9,7 @@ export interface ShowDetails {
 
 export interface ListRow {
   type: 'song' | 'talk' | 'jingle'
+  isSelected: boolean
   isFixed: boolean
   duration: number
   song?: string
@@ -18,6 +19,7 @@ export interface ListRow {
 export interface State {
   ui: {
     showDetailsFormOpen: boolean
+    displaySeconds: boolean
   }
   showDetails: ShowDetails
   rows: ListRow[]
@@ -28,6 +30,7 @@ export const store = createStore<State>({
   state: {
     ui: {
       showDetailsFormOpen: false,
+      displaySeconds: false,
     },
     showDetails: {
       title: 'RetroWaveStation #1',
@@ -38,48 +41,56 @@ export const store = createStore<State>({
       {
         type: 'song',
         isFixed: false,
+        isSelected: false,
         duration: 324,
         song: 'The Midnight - Days of Thunder',
       },
       {
         type: 'jingle',
         isFixed: false,
+        isSelected: false,
         duration: 5,
         text: 'RWS #1',
       },
       {
         type: 'talk',
         isFixed: false,
+        isSelected: false,
         duration: 60,
         text: 'Good Hello!',
       },
       {
         type: 'song',
         isFixed: false,
+        isSelected: false,
         duration: 254,
         song: 'Jessie Frye w/ Timecop1983 - Faded Memory',
       },
       {
         type: 'song',
         isFixed: false,
+        isSelected: false,
         duration: 348,
         song: 'The 1975 - Somebody Else',
       },
       {
         type: 'talk',
         isFixed: false,
+        isSelected: false,
         duration: 30,
         text: 'Welcome listeners, talk about the theme',
       },
       {
         type: 'song',
         isFixed: false,
+        isSelected: false,
         duration: 223,
         song: 'Michael Oakley - California',
       },
       {
         type: 'song',
         isFixed: false,
+        isSelected: false,
         duration: 291,
         song: 'Le Cassette - Digital Power',
       },
@@ -88,6 +99,23 @@ export const store = createStore<State>({
   mutations: {
     addRow(state, payload: ListRow) {
       state.rows.push(payload)
+    },
+    deleteRow(
+      state,
+      payload: {
+        index: number
+      }
+    ) {
+      state.rows.splice(payload.index, 1)
+    },
+    setRowIsSelected(
+      state,
+      payload: {
+        index: number
+        isSelected: boolean
+      }
+    ) {
+      state.rows[payload.index].isSelected = payload.isSelected
     },
     swapRows(
       state,

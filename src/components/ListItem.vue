@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-1 mt-2">
-    <div class="pr-3 text-xl font-semibold text-gray-600 cursor-move">
+    <div class="pr-3 text-xl font-semibold text-gray-600 cursor-move handle">
       {{ startTime(row.duration) }}
     </div>
     <div
@@ -11,18 +11,36 @@
         'border-orange-300': row.type === 'jingle',
       }"
     >
-      <div>
-        <span
-          class="text-sm font-semibold tracking-wide text-gray-500 uppercase font-source"
-          >{{ row.type }}
-        </span>
-        <span class="mx-1 text-gray-500">&middot;</span>
-        <span class="text-sm text-gray-500">{{
-          formatDuration(row.duration)
-        }}</span>
+      <div class="flex justify-between mr-1">
+        <div @click.prevent="toggleSelected">
+          <span
+            class="text-sm font-semibold tracking-wide text-gray-500 uppercase select-none font-source"
+            >{{ row.type }}
+          </span>
+          <span class="mx-1 text-gray-500 select-none">&middot;</span>
+          <span class="text-sm text-gray-500 select-none">{{
+            formatDuration(row.duration)
+          }}</span>
+        </div>
+        <div class="">
+          <a
+            class="text-sm text-gray-400 uppercase select-none text-source"
+            href=""
+            @click.prevent="toggleSelected"
+          >
+            <template v-if="row.isSelected">De-select</template>
+            <template v-else>Select</template>
+          </a>
+        </div>
       </div>
 
       <component :is="rowComponent" :row="row" />
+
+      <div v-if="row.isSelected">
+        <a href="" @click.prevent="deleteRow" class="text-sm text-red-600"
+          >Delete</a
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -86,7 +104,11 @@ export default defineComponent({
 
     const startTime = () => {
       if (props.index === 0) {
-        return startDate.format('HH:mm:ss')
+        if (store.state.ui.displaySeconds) {
+          return startDate.format('HH:mm:ss')
+        } else {
+          return startDate.format('HH:mm')
+        }
       } else {
         let fromStart = 0
         let rowIndex = props.index - 1
@@ -95,7 +117,11 @@ export default defineComponent({
           fromStart += store.state.rows[i].duration
         }
 
-        return startDate.add(fromStart, 'second').format('HH:mm:ss')
+        if (store.state.ui.displaySeconds) {
+          return startDate.add(fromStart, 'second').format('HH:mm:ss')
+        } else {
+          return startDate.add(fromStart, 'second').format('HH:mm')
+        }
       }
     }
 
@@ -111,10 +137,25 @@ export default defineComponent({
       }
     }
 
+    const toggleSelected = () => {
+      store.commit('setRowIsSelected', {
+        index: props.index,
+        isSelected: !props.row.isSelected,
+      })
+    }
+
+    const deleteRow = () => {
+      store.commit('deleteRow', {
+        index: props.index,
+      })
+    }
+
     return {
       rowComponent,
       formatDuration,
       startTime,
+      toggleSelected,
+      deleteRow,
     }
   },
 })

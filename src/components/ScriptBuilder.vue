@@ -82,6 +82,7 @@ export default defineComponent({
     onMounted(() => {
       const el = document.getElementById('programlist')
       Sortable.create(el!, {
+        handle: '.handle',
         onEnd: function (/**Event*/ evt) {
           console.log(`changed ${evt.oldIndex} to ${evt.newIndex}`)
           store.commit('swapRows', {
