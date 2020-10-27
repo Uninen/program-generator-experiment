@@ -34,6 +34,10 @@
 
           <add-form></add-form>
         </div>
+
+        <div class="mb-6">
+          <tempo-button />
+        </div>
       </div>
       <div class="md:w-8/12">
         <div class="px-4 py-3 bg-white rounded-sm shadow md:mr-6">
@@ -62,12 +66,14 @@ import { key, State } from '../store'
 import ListItem from './ListItem.vue'
 import AddForm from './AddForm.vue'
 import ShowDetailsForm from './ShowDetailsForm.vue'
+import TempoButton from './TempoButton.vue'
 
 export default defineComponent({
   components: {
     ListItem,
     AddForm,
     ShowDetailsForm,
+    TempoButton,
   },
   setup() {
     // @ts-expect-error
