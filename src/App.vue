@@ -264,10 +264,11 @@
         v-if="!debug"
         class="p-6 mb-6 text-lg bg-green-300 border-4 border-green-600"
       >
-        You are looking at a static and experimental development version of
-        Radio Script Builder. The initial data on this page is static
-        development data. No changes are persisted, everything resets when you
-        refresh the page. This is here only for debugging and testing purposes.
+        You are looking at an experimental version of Radio Script Builder - a
+        tool for constructing radio show scripts. The initial data on this page
+        is static development data. No changes are persisted, everything resets
+        when you refresh the page. This is here only for expreimentation and
+        gathering for ideas.
       </div>
 
       <router-view></router-view>
@@ -288,6 +289,14 @@
           easy editing and rearranging of sections. It can also easily be
           integrated to other parts of Slipmat ecosystem so the overall user
           experience will be much better.
+        </p>
+
+        <p>
+          There's a
+          <a
+            href="https://backstage.slipmat.io/t/dj-feedback-wanted-show-script-building-tool/2706"
+            >topic on Slipmat Backstage forum for discussing this tool</a
+          >.
         </p>
 
         <p>TODO:</p>

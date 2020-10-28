@@ -48,12 +48,8 @@
 
     <div class="mt-1" v-if="rowType !== 'section'">
       <label class="block">
-        <span class="required">Duration</span>
-        <input
-          class="block w-full mt-1 form-input"
-          placeholder="For example 3:30"
-          v-model="duration"
-        />
+        <span class="required">Duration (seconds)</span>
+        <input class="block w-full mt-1 form-input" v-model="duration" />
       </label>
     </div>
 
