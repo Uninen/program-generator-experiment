@@ -48,6 +48,7 @@
             <li>
               <div
                 class="mt-2 text-lg font-semibold text-gray-500 cursor-pointer select-none font-source"
+                id="add-toggle"
                 @click="toggleAddForm"
               >
                 <template v-if="!addFormOpen">+</template>

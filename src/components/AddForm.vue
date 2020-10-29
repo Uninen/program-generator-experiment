@@ -8,7 +8,7 @@
             type="radio"
             v-model="rowType"
             class="cursor-pointer form-radio"
-            name="accountType"
+            name="row-type"
             value="song"
           />
           <span class="ml-2 font-source">Song</span>
@@ -18,7 +18,7 @@
             type="radio"
             v-model="rowType"
             class="cursor-pointer form-radio"
-            name="accountType"
+            name="row-type"
             value="talk"
           />
           <span class="ml-2">Talk</span>
@@ -28,7 +28,7 @@
             type="radio"
             v-model="rowType"
             class="cursor-pointer form-radio"
-            name="accountType"
+            name="row-type"
             value="jingle"
           />
           <span class="ml-2 font-source">Jingle</span>
@@ -38,7 +38,7 @@
             type="radio"
             v-model="rowType"
             class="cursor-pointer form-radio"
-            name="accountType"
+            name="row-type"
             value="section"
           />
           <span class="ml-2 font-source">Section</span>
@@ -49,18 +49,30 @@
     <div class="mt-1" v-if="rowType !== 'section'">
       <label class="block">
         <span class="required">Duration (seconds)</span>
-        <input class="block w-full mt-1 form-input" v-model="duration" />
+        <input
+          class="block w-full mt-1 form-input"
+          v-model="duration"
+          name="duration"
+        />
       </label>
     </div>
 
     <div class="mt-2">
       <label v-if="rowType === 'song'" class="block">
         <span class="required">{{ labelText }}</span>
-        <input class="block w-full mt-1 form-input" v-model="song" />
+        <input
+          class="block w-full mt-1 form-input"
+          v-model="song"
+          name="songtext"
+        />
       </label>
       <label v-else class="block">
         <span class="required">{{ labelText }}</span>
-        <input class="block w-full mt-1 form-input" v-model="text" />
+        <input
+          class="block w-full mt-1 form-input"
+          v-model="text"
+          name="text"
+        />
       </label>
     </div>
 
@@ -105,6 +117,18 @@ export default defineComponent({
       }
     })
 
+    const resetRow = () => {
+      rowType.value = 'song'
+      duration.value = ''
+      song.value = ''
+      text.value = ''
+      comment.value = ''
+      store.commit('SET_UI_ATTR', {
+        attr: 'addFormOpen',
+        value: false,
+      })
+    }
+
     const addRow = () => {
       let dur = parseInt(duration.value)
       if (rowType.value === 'section') {
@@ -117,6 +141,7 @@ export default defineComponent({
         text: text.value,
         comment: comment.value,
       })
+      resetRow()
     }
 
     return {

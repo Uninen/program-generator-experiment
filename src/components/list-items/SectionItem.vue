@@ -1,5 +1,8 @@
 <template>
-  <div class="text-lg font-semibold text-gray-700" @click="toggleSelected">
+  <div
+    class="text-lg font-semibold text-gray-700 section-item"
+    @click="toggleSelected"
+  >
     {{ row.text }}
   </div>
 </template>
