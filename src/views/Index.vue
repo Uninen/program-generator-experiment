@@ -22,7 +22,9 @@
                 <span class="font-semibold">Duration</span>:
                 {{ showDetails.duration }} min
               </li>
-              <li>Currently scripted: {{ totalProgramMinutes }} min</li>
+              <li id="currently-scripted">
+                Currently scripted: {{ totalProgramMinutes }} min
+              </li>
               <li>
                 Time to fill: {{ emptyProgramMinutes }} min (~{{
                   neededSongsEstimate

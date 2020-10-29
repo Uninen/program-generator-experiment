@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row justify-between song-item">
-    <div class="text-lg text-gray-900" @click="toggleSelected">
+    <div class="text-lg text-gray-900 song-name" @click="toggleSelected">
       {{ row.song }}
     </div>
     <div
