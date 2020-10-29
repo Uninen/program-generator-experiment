@@ -89,8 +89,21 @@ export default defineComponent({
       const el = document.getElementById('programlist')
       Sortable.create(el!, {
         handle: '.handle',
+        setData: function (
+          /** DataTransfer */ dataTransfer,
+          /** HTMLElement*/ dragEl
+        ) {
+          console.log(`setData: ${dragEl.textContent}`, dataTransfer)
+          dataTransfer.setData('Text', dragEl.textContent!) // `dataTransfer` object of HTML5 DragEvent
+        },
+        onChoose: function (/**Event*/ evt) {
+          console.log(`onChoose: ${evt.oldIndex}`)
+        },
+        onStart: function (/**Event*/ evt) {
+          console.log(`onStart: changed ${evt.oldIndex} to ${evt.newIndex}`)
+        },
         onEnd: function (/**Event*/ evt) {
-          console.log(`changed ${evt.oldIndex} to ${evt.newIndex}`)
+          console.log(`onEnd: changed ${evt.oldIndex} to ${evt.newIndex}`)
           store.commit('SWAP_ROWS', {
             from: evt.oldIndex,
             to: evt.newIndex,

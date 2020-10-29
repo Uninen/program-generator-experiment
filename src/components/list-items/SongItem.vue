@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row justify-between">
+  <div class="flex flex-row justify-between song-item">
     <div class="text-lg text-gray-900" @click="toggleSelected">
       {{ row.song }}
     </div>

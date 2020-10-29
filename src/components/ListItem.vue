@@ -1,6 +1,7 @@
 <template>
   <div
-    class="flex flex-1"
+    class="flex flex-1 list-item"
+    :id="'listitem-' + index"
     :class="{
       'mt-4 mb-3': row.type === 'section',
       'mt-2': row.type !== 'section',
